@@ -16,7 +16,8 @@ import {
 } from "@/components/chips";
 import { useB, useT } from "@/lib/i18n";
 import { countPhrase, verdictFilterLabel } from "@/lib/labels";
-import { findings, getQuestion, labelForRef } from "@/data";
+import { findings, getQuestion, labelForRef, scenarios } from "@/data";
+import type { ChallengeFinding } from "@/lib/types";
 import type { FindingVerdict } from "@/lib/types";
 
 export default function ChallengePage() {
@@ -59,7 +60,7 @@ export default function ChallengePage() {
   return (
     <>
       <PageHeader
-        icon={<Gavel className="size-4 text-[--color-phase-challenge]" />}
+        icon={<Gavel className="size-4 text-phase-challenge" />}
         title={t("challenge.title")}
         subtitle={t("challenge.subtitle")}
         accent="challenge"
@@ -123,7 +124,7 @@ export default function ChallengePage() {
                     ? getQuestion(f.spawnedQuestionId)
                     : undefined;
                   return (
-                    <Card key={f.id} className="space-y-3 p-4">
+                    <Card key={f.id} id={f.code} className="scroll-mt-4 space-y-3 p-4">
                       <div className="flex flex-wrap items-center gap-1.5">
                         <code className="font-mono text-[11px] text-muted-foreground">
                           {f.code}
@@ -131,7 +132,7 @@ export default function ChallengePage() {
                         <FindingTypeChip type={f.type} />
                         <SeverityChip severity={f.severity} />
                         <VerdictChip verdict={f.verdict} />
-                        <Link href={`/understanding/${f.targetRef.id.split("-").slice(0, 2).join("-")}`}>
+                        <Link href={hrefForTarget(f.targetRef)}>
                           <Badge variant="outline" className="gap-1 font-mono hover:bg-accent">
                             <Link2 className="size-2.5" />
                             {labelForRef(f.targetRef.id)}
@@ -190,6 +191,20 @@ export default function ChallengePage() {
   );
 }
 
+/**
+ * Resolve a finding's target to a page. Parsing the id string breaks as soon as
+ * a finding targets a role or a work item, whose ids share no shape with the
+ * `PR-xx-Sn` step convention — so branch on the declared kind instead.
+ */
+function hrefForTarget(ref: ChallengeFinding["targetRef"]): string {
+  if (ref.kind === "scenario") return `/understanding/${ref.id}`;
+  if (ref.kind === "step") {
+    const owner = scenarios.find((s) => s.steps.some((st) => st.id === ref.id));
+    return owner ? `/understanding/${owner.id}` : "/understanding";
+  }
+  return "/understanding";
+}
+
 function Stat({
   label,
   value,
@@ -200,9 +215,9 @@ function Stat({
   tone: "success" | "warning" | "danger";
 }) {
   const toneClass = {
-    success: "text-[--color-success]",
-    warning: "text-[--color-warning]",
-    danger: "text-[--color-danger]",
+    success: "text-success",
+    warning: "text-warning",
+    danger: "text-danger",
   }[tone];
   return (
     <div>

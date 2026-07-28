@@ -29,11 +29,11 @@ import {
 import type { PhaseId } from "@/lib/types";
 
 const phaseTone: Record<PhaseId, string> = {
-  ingest: "bg-[--color-phase-ingest]",
-  understand: "bg-[--color-phase-understand]",
-  challenge: "bg-[--color-phase-challenge]",
-  clarify: "bg-[--color-phase-clarify]",
-  baseline: "bg-[--color-phase-baseline]",
+  ingest: "bg-phase-ingest",
+  understand: "bg-phase-understand",
+  challenge: "bg-phase-challenge",
+  clarify: "bg-phase-clarify",
+  baseline: "bg-phase-baseline",
 };
 
 export default function OverviewPage() {
@@ -155,7 +155,7 @@ export default function OverviewPage() {
                       <span className="ml-auto size-1.5 shrink-0 rounded-full bg-agent animate-pulse-ring" />
                     )}
                     {p.status === "done" && (
-                      <CheckCircle2 className="ml-auto size-3 shrink-0 text-[--color-success]" />
+                      <CheckCircle2 className="ml-auto size-3 shrink-0 text-success" />
                     )}
                   </div>
                   <p className="line-clamp-3 text-[11px] leading-relaxed text-muted-foreground">
@@ -204,11 +204,11 @@ export default function OverviewPage() {
               {attention.failingGates.map((g) => (
                 <AttentionRow
                   key={g.id}
-                  icon={<AlertTriangle className="size-3.5 text-[--color-danger]" />}
+                  icon={<AlertTriangle className="size-3.5 text-danger" />}
                   title={`${b({ en: "Gate", zh: "关卡" })} · ${b(g.name)}`}
                   detail={b({
-                    en: `Failing: ${g.actual} — threshold ${g.threshold}`,
-                    zh: `未通过：当前 ${g.actual}，阈值 ${g.threshold}`,
+                    en: `Failing: ${g.actual.en} — threshold ${g.threshold.en}`,
+                    zh: `未通过：当前 ${g.actual.zh}，阈值 ${g.threshold.zh}`,
                   })}
                   href="/baseline"
                 />
@@ -216,7 +216,7 @@ export default function OverviewPage() {
               {attention.blockers.map((q) => (
                 <AttentionRow
                   key={q.id}
-                  icon={<AlertTriangle className="size-3.5 text-[--color-danger]" />}
+                  icon={<AlertTriangle className="size-3.5 text-danger" />}
                   title={`${q.code} · ${b(q.question)}`}
                   detail={b(q.whyItMatters)}
                   href={`/questions/${q.id}`}
@@ -225,7 +225,7 @@ export default function OverviewPage() {
               {attention.openFindings.map((f) => (
                 <AttentionRow
                   key={f.id}
-                  icon={<Layers className="size-3.5 text-[--color-warning]" />}
+                  icon={<Layers className="size-3.5 text-warning" />}
                   title={`${f.code} · ${b(f.claim)}`}
                   detail={b(f.challenge)}
                   href="/challenge"
@@ -234,7 +234,7 @@ export default function OverviewPage() {
               {attention.thinScenarios.map((s) => (
                 <AttentionRow
                   key={s.id}
-                  icon={<FileSearch className="size-3.5 text-[--color-warning]" />}
+                  icon={<FileSearch className="size-3.5 text-warning" />}
                   title={`${s.code} · ${b(s.name)}`}
                   detail={b({
                     en: `Source coverage ${s.sourceCoverage}% — below the 70% freeze gate`,
@@ -297,9 +297,9 @@ function Tile({
   href: string;
 }) {
   const toneClass = {
-    success: "text-[--color-success]",
-    warning: "text-[--color-warning]",
-    danger: "text-[--color-danger]",
+    success: "text-success",
+    warning: "text-warning",
+    danger: "text-danger",
   }[tone];
   return (
     <Link href={href} className="focus-visible:outline-none">

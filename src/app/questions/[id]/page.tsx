@@ -38,7 +38,7 @@ export default function QuestionDetailPage() {
   return (
     <>
       <PageHeader
-        icon={<ClipboardList className="size-4 text-[--color-phase-clarify]" />}
+        icon={<ClipboardList className="size-4 text-phase-clarify" />}
         title={b(q.question)}
         accent="clarify"
         meta={
@@ -72,7 +72,7 @@ export default function QuestionDetailPage() {
               field that lets a consultant triage by consequence. */}
           <section className="space-y-2">
             <SectionHeader title={t("questions.why")} />
-            <Card className="border-l-2 border-l-[--color-phase-clarify] p-4">
+            <Card className="border-l-2 border-l-phase-clarify p-4">
               <p className="text-[12px] leading-relaxed">{b(q.whyItMatters)}</p>
             </Card>
           </section>
@@ -101,9 +101,9 @@ export default function QuestionDetailPage() {
           <section className="space-y-2">
             <SectionHeader title={t("questions.answer")} />
             {q.answer ? (
-              <Card className="space-y-3 border-[--color-success]/30 bg-[--color-success]/5 p-4">
+              <Card className="space-y-3 border-success/30 bg-success/5 p-4">
                 <div className="flex flex-wrap items-center gap-1.5">
-                  <MessageSquareQuote className="size-3.5 text-[--color-success]" />
+                  <MessageSquareQuote className="size-3.5 text-success" />
                   <HumanBadge name={q.answer.answeredBy} />
                   <span className="font-mono text-[10px] text-muted-foreground">
                     {fmtDate(q.answer.answeredAt)}

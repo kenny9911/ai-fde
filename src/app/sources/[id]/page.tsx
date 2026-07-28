@@ -26,7 +26,7 @@ export default function SourceDetailPage() {
   return (
     <>
       <PageHeader
-        icon={<Files className="size-4 text-[--color-phase-ingest]" />}
+        icon={<Files className="size-4 text-phase-ingest" />}
         title={b(source.title)}
         subtitle={`${b(source.provider)} · ${fmtDate(source.receivedAt)}`}
         accent="ingest"
@@ -67,9 +67,10 @@ export default function SourceDetailPage() {
               return (
                 <Card
                   key={p.index}
+                  id={`p${p.index}`}
                   className={
                     unreadable
-                      ? "border-[--color-danger]/30 bg-[--color-danger]/5"
+                      ? "border-danger/30 bg-danger/5"
                       : undefined
                   }
                 >
@@ -78,7 +79,7 @@ export default function SourceDetailPage() {
                     <div
                       className={`flex size-12 shrink-0 flex-col items-center justify-center rounded-md border font-mono text-[10px] ${
                         unreadable
-                          ? "border-[--color-danger]/40 bg-[--color-danger]/10 text-[--color-danger]"
+                          ? "border-danger/40 bg-danger/10 text-danger"
                           : "grid-paper border-border bg-muted/50 text-muted-foreground"
                       }`}
                     >
@@ -110,7 +111,7 @@ export default function SourceDetailPage() {
                           {p.extractedText}
                         </p>
                       ) : (
-                        <p className="rounded-md border border-dashed border-[--color-danger]/30 p-2.5 text-[11px] italic text-[--color-danger]">
+                        <p className="rounded-md border border-dashed border-danger/30 p-2.5 text-[11px] italic text-danger">
                           {b({
                             en: "No text could be extracted from this page.",
                             zh: "本页无法提取任何文本。",
@@ -130,8 +131,8 @@ export default function SourceDetailPage() {
                       )}
 
                       {p.note && (
-                        <div className="flex gap-1.5 rounded-md border border-[--color-warning]/30 bg-[--color-warning]/5 p-2 text-[11px] leading-relaxed">
-                          <AlertTriangle className="mt-0.5 size-3 shrink-0 text-[--color-warning]" />
+                        <div className="flex gap-1.5 rounded-md border border-warning/30 bg-warning/5 p-2 text-[11px] leading-relaxed">
+                          <AlertTriangle className="mt-0.5 size-3 shrink-0 text-warning" />
                           <span className="text-muted-foreground">{b(p.note)}</span>
                         </div>
                       )}

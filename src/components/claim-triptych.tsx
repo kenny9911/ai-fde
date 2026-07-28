@@ -25,8 +25,8 @@ export function ClaimTriptych({
         </p>
         <p className="text-[11px] leading-relaxed">{claim}</p>
       </div>
-      <div className="rounded-md border border-[--color-phase-challenge]/30 bg-[--color-phase-challenge]/5 p-2.5">
-        <p className="mb-1 text-[10px] uppercase tracking-wider text-[--color-phase-challenge]">
+      <div className="rounded-md border border-phase-challenge/30 bg-phase-challenge/5 p-2.5">
+        <p className="mb-1 text-[10px] uppercase tracking-wider text-phase-challenge">
           {t("challenge.rebuttal")}
         </p>
         <p className="text-[11px] leading-relaxed">{challenge}</p>
@@ -34,7 +34,7 @@ export function ClaimTriptych({
       <div
         className={
           revision
-            ? "rounded-md border border-[--color-success]/30 bg-[--color-success]/5 p-2.5"
+            ? "rounded-md border border-success/30 bg-success/5 p-2.5"
             : "rounded-md border border-dashed border-border p-2.5"
         }
       >

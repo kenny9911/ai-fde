@@ -37,7 +37,7 @@ export default function BaselinePage() {
   return (
     <>
       <PageHeader
-        icon={<Lock className="size-4 text-[--color-phase-baseline]" />}
+        icon={<Lock className="size-4 text-phase-baseline" />}
         title={t("baseline.title")}
         subtitle={t("baseline.subtitle")}
         accent="baseline"
@@ -90,8 +90,8 @@ export default function BaselinePage() {
             <span
               className={`font-mono text-2xl tabular-nums ${
                 m.baselineReadiness >= 80
-                  ? "text-[--color-success]"
-                  : "text-[--color-danger]"
+                  ? "text-success"
+                  : "text-danger"
               }`}
             >
               {m.baselineReadiness}%
@@ -112,10 +112,10 @@ export default function BaselinePage() {
           </div>
 
           {!canFreeze && (
-            <div className="flex gap-2 rounded-md border border-[--color-danger]/30 bg-[--color-danger]/5 p-3">
-              <AlertTriangle className="mt-0.5 size-4 shrink-0 text-[--color-danger]" />
+            <div className="flex gap-2 rounded-md border border-danger/30 bg-danger/5 p-3">
+              <AlertTriangle className="mt-0.5 size-4 shrink-0 text-danger" />
               <div>
-                <p className="text-[12px] font-medium text-[--color-danger]">
+                <p className="text-[12px] font-medium text-danger">
                   {t("baseline.blocked")}
                 </p>
                 <p className="mt-0.5 text-[11px] leading-relaxed text-muted-foreground">
@@ -187,16 +187,16 @@ function GateRow({ gate }: { gate: GateCheck }) {
         : XCircle;
   const tone =
     gate.status === "pass"
-      ? "text-[--color-success]"
+      ? "text-success"
       : gate.status === "warn"
-        ? "text-[--color-warning]"
-        : "text-[--color-danger]";
+        ? "text-warning"
+        : "text-danger";
   const border =
     gate.status === "pass"
       ? "border-border"
       : gate.status === "warn"
-        ? "border-[--color-warning]/30"
-        : "border-[--color-danger]/30";
+        ? "border-warning/30"
+        : "border-danger/30";
 
   return (
     <Card className={`space-y-2 p-3.5 ${border}`}>
@@ -204,7 +204,7 @@ function GateRow({ gate }: { gate: GateCheck }) {
         <Icon className={`size-4 shrink-0 ${tone}`} />
         <span className="text-[12px] font-medium">{b(gate.name)}</span>
         <code className="ml-auto rounded border border-border bg-muted/60 px-1.5 py-0.5 font-mono text-[10px]">
-          {gate.actual} / {gate.threshold}
+          {b(gate.actual)} / {b(gate.threshold)}
         </code>
       </div>
       <p className="pl-6 text-[11px] leading-relaxed text-muted-foreground">
@@ -223,12 +223,17 @@ function GateRow({ gate }: { gate: GateCheck }) {
 
 /** Every failing gate links straight to the thing that is failing it. */
 function OffenderLink({ id }: { id: string }) {
+  // Findings, source pages and capabilities have no page of their own, so they
+  // deep-link to an anchor on the board that holds them — a gate that only got
+  // you to the right list would still leave you hunting.
   let href = "/understanding";
   if (id.startsWith("Q-")) href = `/questions/${id}`;
   else if (id.startsWith("PR-")) href = `/understanding/${id}`;
-  else if (id.startsWith("C-")) href = "/challenge";
-  else if (id.startsWith("SRC-")) href = `/sources/${id.split(":")[0]}`;
-  else if (id.includes(".")) href = "/capabilities";
+  else if (id.startsWith("C-")) href = `/challenge#${id}`;
+  else if (id.startsWith("SRC-")) {
+    const [src, page] = id.split(":");
+    href = page ? `/sources/${src}#p${page}` : `/sources/${src}`;
+  } else if (id.includes(".")) href = `/capabilities#${id}`;
 
   return (
     <Link href={href}>
@@ -249,10 +254,10 @@ function ScopeRow({ decision }: { decision: ScopeDecision }) {
         : PauseCircle;
   const tone =
     decision.decision === "in"
-      ? "text-[--color-success]"
+      ? "text-success"
       : decision.decision === "out"
         ? "text-muted-foreground"
-        : "text-[--color-warning]";
+        : "text-warning";
 
   return (
     <div className="flex gap-2.5 p-3">

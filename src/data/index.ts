@@ -103,12 +103,15 @@ export function computeMetrics(): EngagementMetrics {
     scenarios.reduce((sum, s) => sum + s.sourceCoverage, 0) / scenarios.length,
   );
 
-  const allPages = sources.flatMap((s) => s.pages);
-  const unanalysedPages = allPages.filter((p) => !p.analyzed).length;
-  const unreadablePages = sources.reduce(
-    (n, s) => n + s.unreadablePages.length,
-    0,
+  // An unreadable page is also flagged un-analysed, so the two sets overlap.
+  // Count the union, or the "source gaps" tile reports more holes than exist.
+  const unreadableKeys = new Set(
+    sources.flatMap((s) => s.unreadablePages.map((p) => `${s.id}:${p}`)),
   );
+  const unreadablePages = unreadableKeys.size;
+  const unanalysedPages = sources
+    .flatMap((s) => s.pages.map((p) => ({ key: `${s.id}:${p.index}`, p })))
+    .filter((x) => !x.p.analyzed && !unreadableKeys.has(x.key)).length;
 
   const capabilityGaps = capabilities.filter(
     (c) => c.binding.status === "gap" || c.binding.status === "manual-today",
@@ -150,11 +153,29 @@ export function questionsForScenario(scenarioId: string): Question[] {
   return questions.filter((q) => q.blocks.includes(scenarioId));
 }
 
+/**
+ * Findings reachable from a scenario. A challenge can target the scenario, one
+ * of its steps, or a role / work item that participates in it — the last case
+ * matters because a scope-creep finding against a work item (C-009 vs. W-22) is
+ * otherwise invisible from every page a reviewer would actually open.
+ */
 export function findingsForScenario(scenarioId: string): ChallengeFinding[] {
   const scenario = getScenario(scenarioId);
   const stepIds = new Set(scenario?.steps.map((s) => s.id) ?? []);
-  return findings.filter(
-    (f) => f.targetRef.id === scenarioId || stepIds.has(f.targetRef.id),
+  return findings.filter((f) => {
+    const { kind, id } = f.targetRef;
+    if (id === scenarioId || stepIds.has(id)) return true;
+    if (kind === "role") return !!getRole(id)?.scenarioIds.includes(scenarioId);
+    if (kind === "work-item")
+      return !!getWorkItem(id)?.scenarioIds.includes(scenarioId);
+    return false;
+  });
+}
+
+/** Questions still awaiting an answer for this scenario. */
+export function openQuestionsForScenario(scenarioId: string): Question[] {
+  return questionsForScenario(scenarioId).filter(
+    (q) => q.status === "draft" || q.status === "asked",
   );
 }
 

@@ -11,10 +11,10 @@ const badgeVariants = {
   default: "border-transparent bg-primary/12 text-primary",
   muted: "border-border bg-muted text-muted-foreground",
   outline: "border-border text-foreground",
-  success: "border-transparent bg-[--color-success]/12 text-[--color-success]",
-  warning: "border-transparent bg-[--color-warning]/15 text-[--color-warning]",
-  danger: "border-transparent bg-[--color-danger]/12 text-[--color-danger]",
-  info: "border-transparent bg-[--color-info]/12 text-[--color-info]",
+  success: "border-transparent bg-success/12 text-success",
+  warning: "border-transparent bg-warning/15 text-warning",
+  danger: "border-transparent bg-danger/12 text-danger",
+  info: "border-transparent bg-info/12 text-info",
   agent: "border-transparent bg-agent/12 text-agent",
 } as const;
 
@@ -161,14 +161,14 @@ export function ConfidenceBar({
   const pct = Math.round(value * 100);
   const tier = value >= 0.9 ? "high" : value >= 0.7 ? "mid" : "low";
   const tone = {
-    high: "text-[--color-success] border-[--color-success]/30 bg-[--color-success]/10",
-    mid: "text-[--color-warning] border-[--color-warning]/35 bg-[--color-warning]/10",
-    low: "text-[--color-danger] border-[--color-danger]/35 bg-[--color-danger]/10",
+    high: "text-success border-success/30 bg-success/10",
+    mid: "text-warning border-warning/35 bg-warning/10",
+    low: "text-danger border-danger/35 bg-danger/10",
   }[tier];
   const fill = {
-    high: "bg-[--color-success]",
-    mid: "bg-[--color-warning]",
-    low: "bg-[--color-danger]",
+    high: "bg-success",
+    mid: "bg-warning",
+    low: "bg-danger",
   }[tier];
   const filled = tier === "high" ? 3 : tier === "mid" ? 2 : 1;
 
@@ -212,9 +212,9 @@ export function Meter({
 }) {
   const bg = {
     primary: "bg-primary",
-    success: "bg-[--color-success]",
-    warning: "bg-[--color-warning]",
-    danger: "bg-[--color-danger]",
+    success: "bg-success",
+    warning: "bg-warning",
+    danger: "bg-danger",
     agent: "bg-agent",
   }[tone];
   return (

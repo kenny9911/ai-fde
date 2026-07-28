@@ -399,8 +399,8 @@ export interface GateCheck {
   rationale: Bilingual;
   status: "pass" | "warn" | "fail";
   /** Current measured value and the threshold it must clear. */
-  actual: string;
-  threshold: string;
+  actual: Bilingual;
+  threshold: Bilingual;
   /** Ids of whatever is failing, so the UI can link straight to it. */
   offenders: string[];
 }

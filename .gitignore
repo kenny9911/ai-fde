@@ -8,3 +8,8 @@ dist/
 .env.*.local
 *.log
 .DS_Store
+
+# Stray compiler output (src is .ts/.tsx/.css/.svg only)
+src/**/*.js
+src/**/*.js.map
+src/**/*.d.ts

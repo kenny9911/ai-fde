@@ -43,7 +43,7 @@ import {
   getRole,
   getScenario,
   getWorkItem,
-  questionsForScenario,
+  openQuestionsForScenario,
 } from "@/data";
 
 type Tab = "flow" | "evidence" | "questions" | "challenge";
@@ -58,7 +58,7 @@ export default function ScenarioDetailPage() {
   if (!scenario) notFound();
 
   const questions = React.useMemo(
-    () => questionsForScenario(scenario.id),
+    () => openQuestionsForScenario(scenario.id),
     [scenario.id],
   );
   const findings = React.useMemo(
@@ -69,7 +69,7 @@ export default function ScenarioDetailPage() {
   return (
     <>
       <PageHeader
-        icon={<Workflow className="size-4 text-[--color-phase-understand]" />}
+        icon={<Workflow className="size-4 text-phase-understand" />}
         title={b(scenario.name)}
         subtitle={b(scenario.summary)}
         accent="understand"
@@ -243,9 +243,9 @@ export default function ScenarioDetailPage() {
                     <Card key={i} className="space-y-1.5 p-3.5">
                       <div className="flex items-center gap-1.5">
                         {v.confirmed ? (
-                          <CheckCircle2 className="size-3.5 shrink-0 text-[--color-success]" />
+                          <CheckCircle2 className="size-3.5 shrink-0 text-success" />
                         ) : (
-                          <CircleDashed className="size-3.5 shrink-0 text-[--color-warning]" />
+                          <CircleDashed className="size-3.5 shrink-0 text-warning" />
                         )}
                         <h3 className="text-[12px] font-medium">{b(v.name)}</h3>
                         <Badge

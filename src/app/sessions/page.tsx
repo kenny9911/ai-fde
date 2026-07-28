@@ -17,7 +17,7 @@ export default function SessionsPage() {
   return (
     <>
       <PageHeader
-        icon={<GitBranch className="size-4 text-[--color-phase-clarify]" />}
+        icon={<GitBranch className="size-4 text-phase-clarify" />}
         title={t("sessions.title")}
         subtitle={t("sessions.subtitle")}
         accent="clarify"
@@ -73,13 +73,13 @@ export default function SessionsPage() {
                   </span>
                   <span>
                     {t("sessions.answered")}{" "}
-                    <span className="font-mono text-[--color-success]">
+                    <span className="font-mono text-success">
                       {s.answeredQuestionIds.length}
                     </span>
                   </span>
                   <span>
                     {t("sessions.spawned")}{" "}
-                    <span className="font-mono text-[--color-warning]">
+                    <span className="font-mono text-warning">
                       {s.spawnedQuestionIds.length}
                     </span>
                   </span>

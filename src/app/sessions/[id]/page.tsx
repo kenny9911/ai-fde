@@ -29,10 +29,10 @@ const deltaIcon = {
 } as const;
 
 const deltaTone = {
-  added: "text-[--color-success]",
-  changed: "text-[--color-warning]",
-  removed: "text-[--color-danger]",
-  confirmed: "text-[--color-info]",
+  added: "text-success",
+  changed: "text-warning",
+  removed: "text-danger",
+  confirmed: "text-info",
 } as const;
 
 export default function SessionDetailPage() {
@@ -49,7 +49,7 @@ export default function SessionDetailPage() {
   return (
     <>
       <PageHeader
-        icon={<GitBranch className="size-4 text-[--color-phase-clarify]" />}
+        icon={<GitBranch className="size-4 text-phase-clarify" />}
         title={b(s.title)}
         accent="clarify"
         meta={
@@ -118,7 +118,7 @@ export default function SessionDetailPage() {
                           </Link>
                         )}
                       </div>
-                      <blockquote className="flex gap-2 border-l-2 border-[--color-phase-clarify]/40 pl-3">
+                      <blockquote className="flex gap-2 border-l-2 border-phase-clarify/40 pl-3">
                         <Quote className="mt-0.5 size-3 shrink-0 text-muted-foreground/40" />
                         <p className="text-[12px] leading-relaxed">{b(e.text)}</p>
                       </blockquote>

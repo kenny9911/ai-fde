@@ -37,7 +37,7 @@ export default function CapabilitiesPage() {
   return (
     <>
       <PageHeader
-        icon={<Plug className="size-4 text-[--color-phase-understand]" />}
+        icon={<Plug className="size-4 text-phase-understand" />}
         title={t("capabilities.title")}
         subtitle={t("capabilities.subtitle")}
         accent="understand"
@@ -97,7 +97,7 @@ export default function CapabilitiesPage() {
             />
             <div className="space-y-2">
               {g.items.map((c) => (
-                <Card key={c.id} className="space-y-2.5 p-4">
+                <Card key={c.id} id={c.id} className="scroll-mt-4 space-y-2.5 p-4">
                   <div className="flex flex-wrap items-center gap-1.5">
                     <code className="font-mono text-[11px] text-agent">{c.id}</code>
                     <span className="text-[12px] font-medium">{b(c.name)}</span>

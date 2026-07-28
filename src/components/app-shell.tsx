@@ -43,11 +43,11 @@ const NAV: Array<{
 ];
 
 const phaseAccent = {
-  ingest: "text-[--color-phase-ingest]",
-  understand: "text-[--color-phase-understand]",
-  challenge: "text-[--color-phase-challenge]",
-  clarify: "text-[--color-phase-clarify]",
-  baseline: "text-[--color-phase-baseline]",
+  ingest: "text-phase-ingest",
+  understand: "text-phase-understand",
+  challenge: "text-phase-challenge",
+  clarify: "text-phase-clarify",
+  baseline: "text-phase-baseline",
 } as const;
 
 export function AppShell({ children }: { children: React.ReactNode }) {
@@ -238,11 +238,11 @@ export function PageHeader({
   const accentBar = {
     primary: "from-primary/0 via-primary/50 to-primary/0",
     agent: "from-agent/0 via-agent/50 to-agent/0",
-    ingest: "from-transparent via-[--color-phase-ingest]/50 to-transparent",
-    understand: "from-transparent via-[--color-phase-understand]/50 to-transparent",
-    challenge: "from-transparent via-[--color-phase-challenge]/50 to-transparent",
-    clarify: "from-transparent via-[--color-phase-clarify]/50 to-transparent",
-    baseline: "from-transparent via-[--color-phase-baseline]/50 to-transparent",
+    ingest: "from-transparent via-phase-ingest/50 to-transparent",
+    understand: "from-transparent via-phase-understand/50 to-transparent",
+    challenge: "from-transparent via-phase-challenge/50 to-transparent",
+    clarify: "from-transparent via-phase-clarify/50 to-transparent",
+    baseline: "from-transparent via-phase-baseline/50 to-transparent",
   }[accent];
 
   return (

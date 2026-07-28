@@ -47,7 +47,7 @@ export default function SourcesPage() {
   return (
     <>
       <PageHeader
-        icon={<Files className="size-4 text-[--color-phase-ingest]" />}
+        icon={<Files className="size-4 text-phase-ingest" />}
         title={t("sources.title")}
         subtitle={t("sources.subtitle")}
         accent="ingest"
@@ -113,7 +113,7 @@ export default function SourcesPage() {
                   <Card className="h-full space-y-3 p-4 transition-colors hover:border-primary/40">
                     <div className="flex items-start gap-2.5">
                       <span className="mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-md bg-muted ring-1 ring-border">
-                        <Icon className="size-3.5 text-[--color-phase-ingest]" />
+                        <Icon className="size-3.5 text-phase-ingest" />
                       </span>
                       <div className="min-w-0 flex-1">
                         <div className="flex flex-wrap items-center gap-1.5">
@@ -185,9 +185,9 @@ function CompletenessStat({
   note: string;
 }) {
   const toneClass = {
-    success: "text-[--color-success]",
-    warning: "text-[--color-warning]",
-    danger: "text-[--color-danger]",
+    success: "text-success",
+    warning: "text-warning",
+    danger: "text-danger",
   }[tone];
   return (
     <div>

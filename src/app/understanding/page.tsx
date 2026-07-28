@@ -17,7 +17,13 @@ import {
 import { EvidenceChip, ScenarioStatusChip } from "@/components/chips";
 import { useB, useT } from "@/lib/i18n";
 import { countPhrase, scenarioFilterLabel, workItemTypeLabel } from "@/lib/labels";
-import { roles, scenarios, workItems, getRole } from "@/data";
+import {
+  roles,
+  scenarios,
+  workItems,
+  getRole,
+  openQuestionsForScenario,
+} from "@/data";
 import type { ScenarioStatus } from "@/lib/types";
 
 type View = "scenarios" | "roles" | "workItems";
@@ -53,7 +59,7 @@ export default function UnderstandingPage() {
   return (
     <>
       <PageHeader
-        icon={<Workflow className="size-4 text-[--color-phase-understand]" />}
+        icon={<Workflow className="size-4 text-phase-understand" />}
         title={t("understanding.title")}
         subtitle={t("understanding.subtitle")}
         accent="understand"
@@ -159,10 +165,10 @@ export default function UnderstandingPage() {
                                 <Users className="size-2.5" />
                                 {s.roleIds.length}
                               </Badge>
-                              {s.openQuestionIds.length > 0 && (
+                              {openQuestionsForScenario(s.id).length > 0 && (
                                 <Badge variant="info" className="gap-1">
                                   <HelpCircle className="size-2.5" />
-                                  {s.openQuestionIds.length}
+                                  {openQuestionsForScenario(s.id).length}
                                 </Badge>
                               )}
                               {s.findingIds.length > 0 && (

@@ -49,7 +49,7 @@ export default function QuestionsPage() {
   return (
     <>
       <PageHeader
-        icon={<ClipboardList className="size-4 text-[--color-phase-clarify]" />}
+        icon={<ClipboardList className="size-4 text-phase-clarify" />}
         title={t("questions.title")}
         subtitle={t("questions.subtitle")}
         accent="clarify"
