@@ -12,6 +12,17 @@ downstream Object / Rule / Action / Event modelling depends on.
 
 ---
 
+## Docs
+
+| File | What it is |
+|---|---|
+| [`docs/origin-prompt.md`](docs/origin-prompt.md) | The verbatim founding briefs, and what each line of them fixes permanently |
+| [`docs/product-design-spec.md`](docs/product-design-spec.md) | Product design & specification — personas, surface specs, repo contract, type extensions, roadmap. **Start here for new work.** |
+
+This README describes what is built (v0.1). The spec describes what is being built.
+
+---
+
 ## Run it
 
 ```bash
